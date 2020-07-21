@@ -79,6 +79,7 @@ client.on('message', message => {
 */
 
     // Delete messages.
+    // Catch the error and print the error in the JS console.
     message.channel.bulkDelete(amount, true).catch(err => {
         console.error(err);
         message.channel.send('Something went wrong in pruning messages in the channel.');

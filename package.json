@@ -1,0 +1,23 @@
+{
+  "name": "Quotezy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/L0xl3y/Quotezy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/L0xl3y/Quotezy/issues"
+  },
+  "homepage": "https://github.com/L0xl3y/Quotezy#readme",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  }
+}
