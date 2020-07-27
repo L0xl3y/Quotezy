@@ -60,30 +60,6 @@ client.on('message', message => {
         // Send them all as a message.
         message.channel.send(avatarList);
 
-        // Delete messages from a channel.
-    } else if (command === 'prune') {
-        const amount = parseInt(args[0]) + 1;
-
-        // Error handling, in the event that the number cannot be computed.
-        if (isNaN(amount)) {
-            return message.reply('That\'s not a valid number, try again.');
-
-            // Limit the range from greater than 2 to less than 100.
-        } else if (amount < 2 || amount > 100) {
-            return message.reply('Enter a number that is between 2 and 100.');
-        }
-/*
-    // Delete messages as per the value input.
-    message.channel.bulkDelete(amount);
-    }
-*/
-
-    // Delete messages.
-    // Catch the error and print the error in the JS console.
-    message.channel.bulkDelete(amount, true).catch(err => {
-        console.error(err);
-        message.channel.send('Something went wrong in pruning messages in the channel.');
-        });
     }
 });
 
