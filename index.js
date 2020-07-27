@@ -14,6 +14,9 @@ client.on('message', message => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
+    // Set bot permissions.
+    const botPermissions = ['MANAGE_MESSAGES', 'KICK_MESSAGES', 'MANAGE_ROLES', 'MANAGE_CHANNELS'];
+
     // Usuable commands for the bot.
     // Seek server info and find server info.
     if (command === 'server') {
@@ -46,6 +49,15 @@ client.on('message', message => {
         // Bot replies when a user is tagged in the kick command.
         message.reply(`you wanted to kick: ${taggedOut.username}`);
 
+        // Does a permissions check on the user, and returns 
+        // with message that they have permissions required to kick users from the server.
+        if (message.guild.me.permissions.has(botPermissions)) {
+            return message.reply('you have the permissions to do what is needed.');
+        } else {
+            // If the user fails the permissions check the bot will respond with this message.
+            return message.reply('you do not have the required permissions to kick users from the server.');
+        }
+
         // Display the avatar of the tagged user.
     } else if (command === 'user-avatar') {
         if (!message.mentions.users.size) {
@@ -54,12 +66,16 @@ client.on('message', message => {
 
         // Map the list of avatars in the server by user mentions.
         const avatarList = message.mentions.users.map(user => {
-            return `${user.username}'s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true})}>`
+            return `${user.username}'s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true})}>`;
         });
 
         // Send them all as a message.
         message.channel.send(avatarList);
 
+        // Ask for help when working with the bot.
+    } else if (command === 'help') {
+        // Bot responds with the information by mentioning the user and tells the content.
+    return message.reply('you can use these commands: server, user-info, args-info, user-avatar & help');
     }
 });
 
