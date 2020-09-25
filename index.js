@@ -14,75 +14,64 @@ client.on('message', message => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
+    // Set bot permissions.
+    const botPermissions = ['MANAGE_MESSAGES', 'KICK_MESSAGES', 'MANAGE_ROLES', 'MANAGE_CHANNELS'];
+
     // Usuable commands for the bot.
     // Seek server info and find server info.
-    if (command === 'server') {
-        message.channel.send(`Server name: ${message.guild.name}\n Total Members: ${message.guild.memberCount}`);
+    switch(command) {
+        case 'server':
 
-        // Seek user info and find user info.
-    } else if (command === 'user-info') {
-        message.channel.send(`Your username: ${message.author.username}\n Your ID: ${message.author.id}`);
-        
-        // Seek information by using the args-info command.
-    } else if (command === 'args-info') {
-        // Terminate when no arguments are provided in the command.
-        if (!args.length) {
-            return message.channel.send(`No arguments provided, ${message.author}!`);
+            // Send information information and current server population.
+            message.channel.send(`Server name: ${message.guild.name}\n Total Members: ${message.guild.memberCount}`);
+            break;
 
-        } else if (args[0] === 'foo') {
-            return message.channel.send('bar');
-        }
-        
-        message.channel.send(`First argument: ${args[0]}`);
-        // Kick a user, send them to the sin bin!
-    } else if (command === 'kick') {
-        // Bot replies with this when the user doesn't tag a user with the kick command.
-        if (!message.mentions.users.size) {
-            return message.reply(`Please tag a user to kick them from the server!`);
-        }
+        case 'user-info':
 
-        // Tag the user.
-        const taggedOut = message.mentions.users.first();
-        // Bot replies when a user is tagged in the kick command.
-        message.reply(`you wanted to kick: ${taggedOut.username}`);
+            // Return username and user ID.
+            message.channel.send(`Your username: ${message.author.username}\n Your ID: ${message.author.id}`);
+            break;
 
-        // Display the avatar of the tagged user.
-    } else if (command === 'user-avatar') {
-        if (!message.mentions.users.size) {
-            return message.channel.send(`This is your current avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: true })}>`);
-        }
+        case 'kick':
 
-        // Map the list of avatars in the server by user mentions.
-        const avatarList = message.mentions.users.map(user => {
-            return `${user.username}'s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true})}>`
-        });
 
-        // Send them all as a message.
-        message.channel.send(avatarList);
+            if (!message.mentions.users.size) {
+                return message.reply(`Please tag a user to kick them from the server!`);
+            }
+            const taggedOut = message.mentions.users.first();
+            // Bot replies when a user is tagged in the kick command.
+            message.reply(`You wanted to kick: ${taggedOut.username}`);
 
-        // Delete messages from a channel.
-    } else if (command === 'prune') {
-        const amount = parseInt(args[0]) + 1;
+            // Does a permissions check on the user, and returns
+            // with message that they have permissions required to kick users from the server.
+            if (message.guild.me.permissions.has(botPermissions)) {
+                return message.reply('You have the permissions to do what is needed.');
+            } else {
+                // If the user fails the permissions check the bot will respond with this message.
+                return message.reply('You do not have the required permissions to kick users from the server.');
+            }
+            break;
 
-        // Error handling, in the event that the number cannot be computed.
-        if (isNaN(amount)) {
-            return message.reply('That\'s not a valid number, try again.');
+        case 'user-avatar':
+            if (!message.mentions.users.size) {
+                return message.channel.send(`This is your current avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: true})}>`);
+            }
+            // Map the list of avatars in the server by user mentions.
+            const avatarList = message.mentions.users.map(user => {
+                return `${user.username}'s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true})}>`;
+            });
 
-            // Limit the range from greater than 2 to less than 100.
-        } else if (amount < 2 || amount > 100) {
-            return message.reply('Enter a number that is between 2 and 100.');
-        }
-/*
-    // Delete messages as per the value input.
-    message.channel.bulkDelete(amount);
-    }
-*/
+            // Send it all as a message.
+            message.channel.send(avatarList);
+            break;
 
-    // Delete messages.
-    message.channel.bulkDelete(amount, true).catch(err => {
-        console.error(err);
-        message.channel.send('Something went wrong in pruning messages in the channel.');
-        });
+        case 'help':
+            // Bot responds with the information by mentioning the user and responds with valid commands.
+            return message.reply(`${message.author.username}, you can use these commands: server, user-info, kick, user-avatar, help`);
+            break;
+
+        default:
+            message.channel.send("Something has gone wrong.");
     }
 });
 

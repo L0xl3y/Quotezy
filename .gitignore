@@ -1,3 +1,12 @@
+<<<<<<< HEAD
 # Do not track these files.
 node_modules/
 config.json
+=======
+# Directories
+node_modules/
+
+# Files
+config.json
+
+>>>>>>> 718d399e4eff445a05d5a36d939743b4711db406
