@@ -6,14 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-<<<<<<< HEAD
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "discord.js": "^12.2.0",
-    "node.js": "0.0.1-security"
-=======
   "repository": {
     "type": "git",
     "url": "git+https://github.com/L0xl3y/Quotezy.git"
@@ -27,6 +19,5 @@
   "homepage": "https://github.com/L0xl3y/Quotezy#readme",
   "dependencies": {
     "discord.js": "^12.2.0"
->>>>>>> 718d399e4eff445a05d5a36d939743b4711db406
   }
 }
