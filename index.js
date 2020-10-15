@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const embedText = require('./embededtext.js');
 const { prefix, token } = require('./config.json');
 const client = new Discord.Client();
 
@@ -57,12 +58,16 @@ client.on('message', message => {
                 return message.channel.send(`This is your current avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: true})}>`);
             }
             // Map the list of avatars in the server by user mentions.
-            const avatarList = message.mentions.users.map(user => {
-                return `${user.username}'s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true})}>`;
-            });
+              const avatarList = message.mentions.users.map(user => {
+                  return `${user.username}'s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true})}>`;
+              });
+
+            // Map the list of avatars in the server by the user menetion.
+            // Send the data
+
 
             // Send it all as a message.
-            message.channel.send(avatarList);
+            // message.channel.send(avatarList);
             break;
 
         case 'help':
