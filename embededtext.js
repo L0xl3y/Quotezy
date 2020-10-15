@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 // Build the embed link template.
 // Some random code goes here.
 
+/*
 const embed = message.mentions.users.map(user => {
     
     // Find Discord API calls to dynamically generate unique user data.
@@ -21,3 +22,4 @@ const embed = message.mentions.users.map(user => {
 // Allows me to export data from the class as needed.
 
 module.export
+*/

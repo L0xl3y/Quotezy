@@ -18,8 +18,7 @@ client.on('message', message => {
     // Set bot permissions.
     const botPermissions = ['MANAGE_MESSAGES', 'KICK_MESSAGES', 'MANAGE_ROLES', 'MANAGE_CHANNELS'];
 
-    // Usuable commands for the bot.
-    // Seek server info and find server info.
+    // Switch case for command usage.
     switch(command) {
         case 'server':
 
@@ -34,7 +33,6 @@ client.on('message', message => {
             break;
 
         case 'kick':
-
 
             if (!message.mentions.users.size) {
                 return message.reply(`Please tag a user to kick them from the server!`);
@@ -65,11 +63,11 @@ client.on('message', message => {
             // Map the list of avatars in the server by the user menetion.
             // Send the data
 
-
             // Send it all as a message.
             // message.channel.send(avatarList);
             break;
 
+        // Essentially useless, just used to get the user started.
         case 'help':
             // Bot responds with the information by mentioning the user and responds with valid commands.
             return message.reply(`${message.author.username}, you can use these commands: server, user-info, kick, user-avatar, help`);
